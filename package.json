@@ -1,0 +1,14 @@
+{
+  "name": "donjon-gradon",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "socket.io": "*"
+  },
+  "devDependencies": {
+    "express": "^4.8.4"
+  }
+}
