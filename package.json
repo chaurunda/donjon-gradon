@@ -6,9 +6,9 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "socket.io": "*"
-  },
-  "devDependencies": {
-    "express": "^4.8.4"
+    "express": "3.4.7",
+    "jade": "*",
+    "stylus": "*",
+    "socket.io": "~1.0.6"
   }
 }

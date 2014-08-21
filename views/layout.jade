@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    block content
+  button(onclick='retrait(1)') Perd un pv
+  script(src='/socket.io/socket.io.js')
+  script(src='/javascripts/socket.js')
+

@@ -1,14 +1,42 @@
-var app = require('http').createServer(handler);
-var io = require('socket.io')(app);
-var fs = require('fs');
-var port = 1810;
+
+/**
+ * Module dependencies.
+ */
+
+var express = require('express');
+var routes = require('./routes');
+var user = require('./routes/user');
+var http = require('http');
+var path = require('path');
 var os = require('os');
 var ifaces = os.networkInterfaces();
 var test = "192.168.";
+var app = express();
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
-/*
-  Return result : LocalIP of the serveur
-  */
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
+
+app.get('/', routes.index);
+app.get('/users', user.list);
+
+var server = http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
+//LocalIp
 for (var dev in ifaces) {
     for(var details in ifaces[dev]){
         var detail = ifaces[dev][details]
@@ -19,35 +47,32 @@ for (var dev in ifaces) {
         }
     }
 }
-
-app.listen(port);
-
-function handler (req, res) {
-  fs.readFile(__dirname + '/index.html',
-              function (err, data) {
-                if (err) {
-                  res.writeHead(500);
-                  return res.end('Error loading index.html');
-              }
-
-              res.writeHead(200);
-              res.end(data);
-          });
-}
-console.log('Serveur launch on port '+ port);
-
+//Web Socket
+var io = require('socket.io')(server);
 io.on('connection', function (socket) {
     socket.emit('ip', result);//Send Ip address for client, to allow them to connect to the server socket
+
+    /*
+    * Init Character stats
+    */
     socket.on('connected', function(data){
         socket.hero = data ;
         console.log(socket.id+':',socket.hero);
-    })
+    });
+
+    /*
+    * Remove HP
+    */
     socket.on('loose', function(data){
         socket.hero.life = data;
-    })
-    if(socket.Hero.life === 0){
-        socket.emmit('gameOver', true);
-    }
+        console.log(socket.hero.life);
 
-
+        /*
+        * Game Over
+        */
+        if(socket.hero.life == 0){
+          socket.emit('gameOver', true);
+        }
+    });
 });
+
