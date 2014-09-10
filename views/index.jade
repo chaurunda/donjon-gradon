@@ -3,3 +3,13 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  input(type='hidden', value='#{ip}', id="hiddenIp")
+  div#init
+    input.name
+    button(type='submit' value="Valider" id="create").
+      Valider
+  div#perso
+    p#pseudo
+    p#hp
+    p#mana
+    button(onclick='retrait(1)') Perd un pv

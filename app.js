@@ -30,23 +30,33 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+//LocalIp
+var result = ""
+for (var dev in ifaces) {
+    for(var details in ifaces[dev]){
+        var detail = ifaces[dev][details]
+        if (detail.family=='IPv4' && detail.address.substr(0, test.length) == test) {
+            result += detail.address+',';
+            break;
+        }
+    }
+}
+
+app.get('/',
+    exports.index = function(req, res){
+        res.render('index', { title: 'Donjon & gradon', ip: result });
+    }
+);
 app.get('/users', user.list);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-//LocalIp
-for (var dev in ifaces) {
-    for(var details in ifaces[dev]){
-        var detail = ifaces[dev][details]
-        if (detail.family=='IPv4' && detail.address.substr(0, test.length) == test) {
-            var result = detail.address;
-            console.log(result);
-            break;
-        }
-    }
-}
+
+
+
+
+
 //Web Socket
 var io = require('socket.io')(server);
 io.on('connection', function (socket) {
