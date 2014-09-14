@@ -5,13 +5,14 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var os = require('os');
 var ifaces = os.networkInterfaces();
 var test = "192.168.";
 var app = express();
+
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -42,12 +43,7 @@ for (var dev in ifaces) {
     }
 }
 
-app.get('/',
-    exports.index = function(req, res){
-        res.render('index', { title: 'Donjon & gradon', ip: result });
-    }
-);
-app.get('/users', user.list);
+app.get('/',routes.index);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
@@ -65,9 +61,9 @@ io.on('connection', function (socket) {
     /*
     * Init Character stats
     */
-    socket.on('connected', function(data){
+    socket.on('created', function(data){
         socket.hero = data ;
-        console.log(socket.id+':',socket.hero);
+        console.log(socket.id+' Hero : \n',socket.hero);
     });
 
     /*
