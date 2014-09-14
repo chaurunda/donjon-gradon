@@ -4,7 +4,8 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
+var index = require('./routes');
+var weapon = require('./routes/weapon');
 var http = require('http');
 var path = require('path');
 var os = require('os');
@@ -13,6 +14,16 @@ var test = "192.168.";
 var app = express();
 
 
+// Mongo
+//var mongo = require('mongodb');
+//var db = mongo.MongoClient;
+
+// Make our db accessible to our router
+// app.use(function(req,res,next){
+//     req.db = db;
+//     next();
+// });
+//
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -43,7 +54,13 @@ for (var dev in ifaces) {
     }
 }
 
-app.get('/',routes.index);
+/*
+ * Routes
+ */
+app.get('/',index.index);
+app.get('/weapon', weapon.index);
+
+
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

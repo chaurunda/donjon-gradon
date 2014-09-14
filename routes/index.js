@@ -3,5 +3,5 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Donjon & Gradon', ip: 'ip' });
+  res.render('home/index', { title: 'Donjon & Gradon', ip: 'ip' });
 };
