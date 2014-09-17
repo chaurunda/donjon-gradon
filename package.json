@@ -9,9 +9,7 @@
     "express": "3.4.7",
     "jade": "*",
     "stylus": "*",
-    "socket.io": "~1.0.6",
-    "mongodb": "*",
-    "monk": "*"
+    "socket.io": "~1.0.6"
   },
   "devDependencies": {
     "formidable": "~1.0.15"
