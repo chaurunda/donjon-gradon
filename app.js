@@ -48,16 +48,23 @@ for (var dev in ifaces) {
     for(var details in ifaces[dev]){
         var detail = ifaces[dev][details]
         if (detail.family=='IPv4' && detail.address.substr(0, test.length) == test) {
-            result += detail.address+',';
-            break;
+            result += detail.address+' ';
         }
     }
 }
-
+if(result == ''){
+    result = '127.0.0.1';
+}
+console.log('ip ' + result);
 /*
  * Routes
  */
-app.get('/',index.index);
+app.get('/',function(req, res){
+  res.render('home/index', { title: 'Donjon & Gradon', ip: result });
+});
+
+
+
 app.get('/weapon', weapon.index);
 
 
@@ -84,11 +91,18 @@ io.on('connection', function (socket) {
     });
 
     /*
+     * Send status to the other player
+     */
+    socket.on('statusHero', function(data){
+        console.log(data);
+        socket.broadcast.emit('newPlayer', data)
+    });
+    /*
     * Remove HP
     */
     socket.on('loose', function(data){
         socket.hero.life = data;
-        console.log(socket.hero.life);
+        console.log(socket.hero.name + ' : ' + socket.hero.life);
 
         /*
         * Game Over

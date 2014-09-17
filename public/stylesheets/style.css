@@ -8,3 +8,15 @@ a {
 .hide {
   display: none;
 }
+#init .error {
+  border: 1px solid #f00;
+}
+#init #createError {
+  display: none;
+  color: #f00;
+}
+#team {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}

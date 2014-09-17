@@ -1,7 +1,15 @@
 /*
+ * Everything about the player is here
+ * _heroCreate : Will create the new player. Is waiting for the name and the class of the hero.
+ * _initClassHero : Will add to the hero all of the beginning stats
+ * refreshPlayerPanel : Will refresh the panel stats of the player
+ */
+
+/*
  * Init Socket
  */
-var socket = io('192.168.0.20');
+var ip = $('#hiddenIp').val().trim(),
+    socket = io(ip);
 
 socket.on('ip', function (data) {
     var ip = data; // Return the ip address of the server
@@ -56,10 +64,10 @@ player = {
             $spellPower = '0';
             $mana = '0';
         }
-        Hero['Strenght'] = $strenght;
-        Hero['Stamina'] = $stamina;
-        Hero['SpellPower'] = $spellPower;
-        Hero['Mana'] = $mana;
+        Hero['strenght'] = $strenght;
+        Hero['stamina'] = $stamina;
+        Hero['spellPower'] = $spellPower;
+        Hero['mana'] = $mana;
 
         /*
          * Send socket to server & show player panel
@@ -67,27 +75,26 @@ player = {
         socket.emit('created', Hero);
         $init.className = $init.className + "hide";
         $playerPanel.className = "";
-        this._refreshPlayerPanel();
+        this.refreshPlayerPanel();
     },
-    _refreshPlayerPanel: function(){
+    refreshPlayerPanel: function(){
         /*
          * Init Vars
          */
         var $HeroName = document.getElementById('pseudo'),
             $HeroHp = document.getElementById('hp');
-
+        /*
+         * Refresh the panel stats of the player
+         */
         $HeroName.innerHTML = Hero['name'] + ' - ' + Hero['class'];
         $HeroHp.innerHTML = Hero['life'] + ' pv';
+        /*
+         * Send Hero status to the other players
+         */
+        socket.emit('statusHero', Hero);
     }
 }
 
-
-/*
- * Init the game
- */
-$('#create').on('click', function(){
-    player.init();
-});
 
 socket.on("gameOver", function(){
     location.reload();

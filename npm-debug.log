@@ -1,10 +1,8 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'E:\\Program Files\\nodejs\\\\node.exe',
-1 verbose cli   'E:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
-1 verbose cli   'start' ]
-2 info using npm@1.3.14
-3 info using node@v0.10.22
-4 verbose node symlink E:\Program Files\nodejs\\node.exe
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'start' ]
+2 info using npm@1.4.23
+3 info using node@v0.10.31
+4 verbose node symlink /usr/bin/node
 5 verbose run-script [ 'prestart', 'start', 'poststart' ]
 6 info prestart donjon-gradon@0.0.1
 7 info start donjon-gradon@0.0.1
@@ -20,10 +18,10 @@
 11 error You can get their info via:
 11 error     npm owner ls donjon-gradon
 11 error There is likely additional logging output above.
-12 error System Windows_NT 6.2.9200
-13 error command "E:\\Program Files\\nodejs\\\\node.exe" "E:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
-14 error cwd E:\UwAmp\www\donjon-gradon
-15 error node -v v0.10.22
-16 error npm -v 1.3.14
+12 error System Linux 3.13.0-35-generic
+13 error command "/usr/bin/node" "/usr/bin/npm" "start"
+14 error cwd /home/arnaud/Bureau/node/donjon-gradon
+15 error node -v v0.10.31
+16 error npm -v 1.4.23
 17 error code ELIFECYCLE
 18 verbose exit [ 1, true ]

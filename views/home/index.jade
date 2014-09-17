@@ -5,6 +5,7 @@ block content
   p Welcome to #{title}
   input(type='hidden', value='#{ip}', id="hiddenIp")
   div#init
+    p(id="createError") Veuillez remplir tous les champs
     p
       input.name(placeholder="Nom du Hero" id="name")
     p
@@ -18,5 +19,5 @@ block content
     p#pseudo
     p#hp
     p#mana
-    button(onclick='retrait(1)') Perd un pv
-    button(onclick='computer.init()') Attaque un monstre
+    button(onclick='browser.retrait(1)') Perd un pv
+    div#team
