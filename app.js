@@ -5,12 +5,12 @@
 
 var express = require('express');
 var index = require('./routes');
-var weapon = require('./routes/weapon');
 var http = require('http');
 var path = require('path');
 var os = require('os');
 var ifaces = os.networkInterfaces();
 var test = "192.168.";
+var mongo = require('mongodb');
 var app = express();
 
 // all environments
@@ -45,12 +45,16 @@ if(result == ''){
     result = '127.0.0.1';
 }
 console.log('ip ' + result);
+
+// Mongo
+var db = mongo.MongoClient;
+
 /*
  * Routes
  */
-app.get('/',function(req, res){
-  res.render('home/index', { title: 'Donjon & Gradon', ip: result });
-});
+app.get('/',index.index(result, db));
+app.get('/new', index.newGame(result, db));
+app.post('/new', index.newGame(result, db));
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
@@ -77,7 +81,6 @@ io.on('connection', function (socket) {
      * Send status to the other player
      */
     socket.on('statusHero', function(data){
-        console.log(data);
         socket.broadcast.emit('newPlayer', data)
     });
     /*

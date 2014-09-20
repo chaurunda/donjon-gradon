@@ -4,20 +4,7 @@ block content
   h1= title
   p Welcome to #{title}
   input(type='hidden', value='#{ip}', id="hiddenIp")
-  div#init
-    p(id="createError") Veuillez remplir tous les champs
-    p
-      input.name(placeholder="Nom du Hero" id="name")
-    p
-      select(name="class" id="class")
-        option(value="", selected="selected") Selectionner une classe
-        option(value="warrior") Guerrier
-        option(value="magus") Magus
-    button(type="submit" value="Valider" id="create").
-      Valider
-  div#perso.hide
-    p#pseudo
-    p#hp
-    p#mana
-    button(onclick='browser.retrait(1)') Perd un pv
-    div#team
+  p
+    a(href="new") New game
+  p
+    a(href="continue") Continue
