@@ -46,15 +46,18 @@ if(result == ''){
 }
 console.log('ip ' + result);
 
+ip = result.split(' ');
+
+console.log('"'+ip[0]+'"');
 // Mongo
 var db = mongo.MongoClient;
 
 /*
  * Routes
  */
-app.get('/',index.index(result, db));
-app.get('/new', index.newGame(result, db));
-app.post('/new', index.newGame(result, db));
+app.get('/',index.index(ip[0], db));
+app.get('/new', index.newGame(ip[0], db));
+app.post('/new', index.newGame(ip[0], db));
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
