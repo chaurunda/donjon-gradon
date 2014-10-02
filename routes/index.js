@@ -16,15 +16,21 @@ exports.index = function(ip, db){
 
 exports.newGame = function(ip, db){
     return function(req, res){
-        console.log(req.body.test);
-        if(req.body.test) {
+        //req.body return all the field
+        if(req.body.name && req.body.class) {
             db.connect(dbconnection, function(err, db){
                 if(err) throw err;
-                var collection = db.collection('player');
-                //req.body return all the field
+                var collection = db.collection('test'),
+                insertObj = {
+                    name : req.body.name,
+                    class : req.body.class
+                };
+                collection.insert(insertObj, function(err, data){
+                    if(err) throw err;
+                    console.log(data);
+                    res.redirect('/game', data);
+                });
             });
-            socket.hero.test = req.body.test;
-            console.log(socket.hero);
         } else {
             res.render('home/new', {title : 'Donjon & Gradon - New', ip : ip});
         }

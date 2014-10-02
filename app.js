@@ -5,6 +5,7 @@
 
 var express = require('express');
 var index = require('./routes');
+var game = require('./routes/game');
 var http = require('http');
 var path = require('path');
 var os = require('os');
@@ -44,11 +45,7 @@ for (var dev in ifaces) {
 if(result == ''){
     result = '127.0.0.1';
 }
-console.log('ip ' + result);
-
 ip = result.split(' ');
-
-console.log('"'+ip[0]+'"');
 // Mongo
 var db = mongo.MongoClient;
 
@@ -58,20 +55,16 @@ var db = mongo.MongoClient;
 app.get('/',index.index(ip[0], db));
 app.get('/new', index.newGame(ip[0], db));
 app.post('/new', index.newGame(ip[0], db));
+app.get('/game', game.index());
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-
-
-
-
 //Web Socket
 var io = require('socket.io')(server);
 io.on('connection', function (socket) {
     socket.emit('ip', result);//Send Ip address for client, to allow them to connect to the server socket
-
     /*
     * Init Character stats
     */
@@ -79,7 +72,6 @@ io.on('connection', function (socket) {
         socket.hero = data ;
         console.log(socket.id+' Hero : \n',socket.hero);
     });
-
     /*
      * Send status to the other player
      */
@@ -92,7 +84,6 @@ io.on('connection', function (socket) {
     socket.on('loose', function(data){
         socket.hero.life = data;
         console.log(socket.hero.name + ' : ' + socket.hero.life);
-
         /*
         * Game Over
         */
