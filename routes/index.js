@@ -28,7 +28,7 @@ exports.newGame = function(ip, db){
                 collection.insert(insertObj, function(err, data){
                     if(err) throw err;
                     console.log(data);
-                    res.render('player/index', data);
+                    res.json('/game/'+data._id);
                 });
             });
         } else {
