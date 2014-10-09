@@ -3,11 +3,12 @@ extends ../layout
 block content
   h1= title
   p Welcome to #{title}
-  input(type='hidden', value='#{ip}', id="hiddenIp")
-  form(method="post" action="/new")
-    input(type="text" placeholder="Nom du Hero" id="name" name="name")
-    select(name="class" id="class")
-          option(value="", selected="selected") Selectionner une classe
-          option(value="warrior") Guerrier
-          option(value="magus") Magus
-    input(type="submit")
+  div.input-group
+    input(type='hidden', value='#{ip}', id="hiddenIp")
+    form(method="post" action="/new")
+      input.form-control(type="text" placeholder="Nom du Hero" id="name" name="name")
+      select.form-control(name="class" id="class")
+            option(value="", selected="selected") Selectionner une classe
+            option(value="warrior") Guerrier
+            option(value="magus") Magus
+      input.btn(type="submit")

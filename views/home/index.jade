@@ -5,6 +5,11 @@ block content
   p Welcome to #{title}
   input(type='hidden', value='#{ip}', id="hiddenIp")
   p
-    a(href="new") New game
-  p
-    a(href="continue") Continue
+    a.btn.btn-default(href="new") New game
+  ul#player
+      each player in players
+        li
+          h2= player.name
+          a.btn.btn-success(href="/new/"+player._id) Continue
+          a.btn.btn-danger(href="/del/"+player._id)
+            span.glyphicon.glyphicon-remove-circle

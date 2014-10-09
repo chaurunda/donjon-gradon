@@ -12,7 +12,9 @@ var os = require('os');
 var ifaces = os.networkInterfaces();
 var test = "192.168.";
 var mongo = require('mongodb');
+var dbname = "test";
 var app = express();
+var appname = "Donjon & gradon";
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -46,19 +48,31 @@ if(result == ''){
     result = '127.0.0.1';
 }
 ip = result.split(' ');
+
+
 // Mongo
 var db = mongo.MongoClient;
 
 /*
  * Routes
  */
-app.get('/',index.index(ip[0], db));
-app.get('/new', index.newGame(ip[0], db));
-app.post('/new', index.newGame(ip[0], db));
-app.get('/game/:id', game.index(ip[0], db));
+app.get('/',index.index(ip[0], db, dbname));
+app.get('/new', index.newGame(ip[0], db, dbname));
+app.post('/new', index.newGame(ip[0], db, dbname));
+app.get('/game/:id', game.index(ip[0], db, dbname));
+app.get('/del/:id', index.deletePlayer(ip[0], db, dbname));
+
+
+
 
 var server = http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+    //Clear console
+    var lines = process.stdout.getWindowSize()[1];
+    for(var i = 0; i < lines; i++) {
+        console.log('\r\n');
+    }
+    console.log("=== Welcome to " + appname + " ===");
+    console.log("=== Express server listening on port" + app.get('port') + " ===");
 });
 
 //Web Socket
