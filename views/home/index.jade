@@ -10,6 +10,6 @@ block content
       each player in players
         li
           h2= player.name
-          a.btn.btn-success(href="/new/"+player._id) Continue
+          a.btn.btn-success(href="/game/"+player._id) Continue
           a.btn.btn-danger(href="/del/"+player._id)
             span.glyphicon.glyphicon-remove-circle

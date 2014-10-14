@@ -5,6 +5,9 @@ block content
   p Welcome to #{title}
   div.input-group
     input(type='hidden', value='#{ip}', id="hiddenIp")
+    if message
+      div.alert.alert-danger
+        p.bg-danger #{message}
     form(method="post" action="/new")
       input.form-control(type="text" placeholder="Nom du Hero" id="name" name="name")
       select.form-control(name="class" id="class")

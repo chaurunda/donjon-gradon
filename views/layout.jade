@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app)
   head
     title= title
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
@@ -9,6 +9,8 @@ html
     block content
   script(src='/socket.io/socket.io.js')
   script(src='/javascripts/jquery.js')
+  script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js')
   script(src='/javascripts/config.js')
   script(src='/javascripts/player.js')
   script(src='/javascripts/scriptsjQuery.js')
+  script(src='/javascripts/scriptsAngular.js')

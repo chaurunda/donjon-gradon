@@ -72,7 +72,7 @@ var server = http.createServer(app).listen(app.get('port'), function(){
         console.log('\r\n');
     }
     console.log("=== Welcome to " + appname + " ===");
-    console.log("=== Express server listening on port" + app.get('port') + " ===");
+    console.log("=== Express server listening on port " + app.get('port') + " ===");
 });
 
 //Web Socket

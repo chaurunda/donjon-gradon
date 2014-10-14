@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  input(type='hidden', value='#{ip}', id="hiddenIp")
+  div(ng-controller="main")
+    input(type='text', value='#{data.life}', nb-value='life', ng-model='life', ng-change="change(life)")
+    p name : #{data.name}
+    p class : #{data.class}
+    span {{life_percent}}
+

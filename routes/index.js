@@ -17,7 +17,6 @@ exports.index = function(ip, db, dbname){
                 res.render('home/index', { title: 'Donjon & Gradon', ip: ip, players : players });
                 db.close();
             });
-
         });
     }
 };
@@ -31,16 +30,28 @@ exports.newGame = function(ip, db, dbname){
                 var collection = db.collection(dbname),
                 insertObj = {
                     name : req.body.name,
-                    class : req.body.class
+                    class : req.body.class,
+                    life : 100
                 };
+                if(req.body.class == "warrior"){
+                    insertObj['strenght'] = 20;
+                    insertObj['stamina'] = 10;
+                    insertObj['spellpower'] = 0;
+                    insertObj['mana'] = 0;
+                } else if (req.body.class == "magus"){
+                    insertObj['strenght'] = 0;
+                    insertObj['stamina'] = 0;
+                    insertObj['spellpower'] = 20;
+                    insertObj['mana'] = 10;
+                }
                 collection.insert(insertObj, function(err, data){
                     if(err) throw err;
                     console.log(data);
-                    res.json('/game/'+ data._id);
+                    res.redirect('game/'+data[0]['_id']);
                 });
             });
         } else {
-            res.render('home/new', {title : 'Donjon & Gradon - New', ip : ip});
+            res.render('home/new', {title : 'Donjon & Gradon - New', ip : ip, message : 'Veuillez remplir tous les champs'});
         }
     }
 };

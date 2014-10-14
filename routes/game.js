@@ -9,9 +9,8 @@ exports.index = function(ip, db, dbname){
             var collection = db.collection(dbname);
             collection.findOne({"_id" : ObjectID(req.params.id)}, function(err, player){
                 console.log(player);
+                res.render('game/index', { title: 'Donjon & Gradon', ip: ip, data : player });
             });
-            console.log(req.params.id);
-            res.render('player/index', { title: 'Donjon & Gradon', ip: ip });
         });
     }
 };
