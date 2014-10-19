@@ -1,5 +1,5 @@
 var smiley = new Image(),
-    ts = new Tileset("/tilesets/tile.png"),
+    ts = new Tileset("tile.png"),
     map = new Map("map");
 
 smiley.src = "http://www.siteduzero.com/Templates/images/smilies/heureux.png";

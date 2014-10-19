@@ -20,8 +20,18 @@ function Map(name){
 
 // Pour récupérer la taille (en tiles) de la carte
 Map.prototype.getHeight = function() {
-  return this.terrain.length;
+  return this.map.length;
 }
 Map.prototype.getWidth = function() {
-  return this.terrain[0].length;
+  return this.map[0].length;
+}
+
+Map.prototype.drawMap = function(context) {
+  for(var i = 0, l = this.map.length ; i < l ; i++) {
+    var line = this.map[i];
+    var y = i * 32;
+    for(var j = 0, k = line.length ; j < k ; j++) {
+      this.tileset.drawTile(line[j], context, j * 32, y);
+    }
+  }
 }
