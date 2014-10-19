@@ -8,7 +8,7 @@
 /*
  * Init Socket
  */
-var ip = $('#hiddenIp').val().trim(),
+var ip = document.getElementById('hiddenIp').value.trim(),
     socket = io(ip);
 
 socket.on('ip', function (data) {

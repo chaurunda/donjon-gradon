@@ -4,13 +4,11 @@ html(ng-app)
     title= title
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
+    | <!--[if gt IE 8]> <script type="text/javascript" src="/javascripts/vendors/excanvas.compiled.js"></script> <!--<![endif]-->
   body
     a(href="/") Accueil
     block content
   script(src='/socket.io/socket.io.js')
-  script(src='/javascripts/jquery.js')
-  script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js')
   script(src='/javascripts/config.js')
   script(src='/javascripts/player.js')
-  script(src='/javascripts/scriptsjQuery.js')
-  script(src='/javascripts/scriptsAngular.js')
+  script(src='/javascripts/canvas.js')
