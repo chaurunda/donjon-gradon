@@ -18,9 +18,6 @@ window.onload = function(){
     //ctx.strokeRect(75, 75, 50, 50);
 
     /* Draw Image */
-    //ctx.drawImage(smiley, 200, 10);
-    //ctx.drawImage(smiley, 200, 30, 100, 50);
-    //ctx.drawImage(smiley, 0, 0, 10, 19, 200, 100, 10, 19);
 
     /* Draw tileset */
     //ts.drawTile(1, ctx, 10, 10);
@@ -29,9 +26,49 @@ window.onload = function(){
     //ts.drawTile(7, ctx, 130, 10);
 
     /* Draw Json Map */
-    canvas.width  = map.getWidth() * 32;
-    canvas.height = map.getHeight() * 32;
+    // canvas.width  = map.getWidth() * 32;
+    // canvas.height = map.getHeight() * 32;
 
-    map.drawMap(ctx);
+    var image = {
+        x : 10,
+        y : 10
+    };
+
+    ctx.drawImage(smiley, image.x, image.y);
+
+    //map.drawMap(ctx);
+
+    window.addEventListener("keyup", function(e){
+        console.log(e.keyCode);
+        switch(e.keyCode){
+            case 38:
+                //clearScreen(ctx);
+                image.y = image.y - 3;
+                ctx.drawImage(smiley, image.x , image.y);
+                break;
+            case 40:
+                //clearScreen(ctx);
+                image.y = image.y + 3;
+                ctx.drawImage(smiley, image.x , image.y);
+                break;
+            case 37:
+                //clearScreen(ctx);
+                image.x = image.x - 3;
+                ctx.drawImage(smiley, image.x , image.y);
+                break;
+            case 39:
+                //clearScreen(ctx);
+                image.x = image.x + 3;
+                ctx.drawImage(smiley, image.x , image.y);
+                break;
+        }
+    }, false)
   }
+}
+function clearScreen(ctx){
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,300,150);
+}
+function getKeyCode(e){
+    console.log(e.keyCode);
 }
