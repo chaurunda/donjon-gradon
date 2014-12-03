@@ -2,38 +2,34 @@ var hero = new Image();
 hero.src = "/images/character.png";
 
 window.onload = function () {
-    var canvas = document.getElementById('screen');
+    var canvas = document.getElementById('heroCanvas');
     if (canvas) {
         var ctx = canvas.getContext('2d'),
             positionImage = {
-                x: 10,
-                y: 10
+                x: canvas.width / 2,
+                y: canvas.height / 2
             };
-        
         ctx.drawImage(hero, 0, 0, 16, 16, positionImage.x, positionImage.y, 16, 16);
-
-        //map.drawMap(ctx);
-
-        window.addEventListener("keyup", function (e) {
+        window.addEventListener("keydown", function (e) {
             switch (e.keyCode) {
             case 38: // top
-                clearScreen(ctx);
+                ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
                 positionImage.y = positionImage.y - 3;
-                ctx.drawImage(hero, 16, 0, 16, 16, positionImage.x, positionImage.y, 16, 16);
+                ctx.drawImage(hero, 0, 16, 16, 16, positionImage.x, positionImage.y, 16, 16);
                 break;
             case 40: // bottom
-                clearScreen(ctx);
+                ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
                 positionImage.y = positionImage.y + 3;
                 ctx.drawImage(hero, 0, 0, 16, 16, positionImage.x, positionImage.y, 16, 16);
                 break;
             case 37: // left
-                clearScreen(ctx);
+                ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
                 positionImage.x = positionImage.x - 3;
-                ctx.drawImage(hero, 32, 0, 16, 16, positionImage.x, positionImage.y, 16, 16);
+                ctx.drawImage(hero, 0, 48, 16, 16, positionImage.x, positionImage.y, 16, 16);
                 break;
             case 39: //right
-                clearScreen(ctx);
-                ctx.drawImage(hero, 96, 0, 16, 16, positionImage.x, positionImage.y, 16, 16);
+                ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
+                ctx.drawImage(hero, 0, 32, 16, 16, positionImage.x, positionImage.y, 16, 16);
                 positionImage.x = positionImage.x + 3;
                 break;
             }
@@ -41,11 +37,3 @@ window.onload = function () {
     }
 };
 
-function clearScreen(ctx) {
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, 300, 150);
-};
-
-function getKeyCode(e) {
-    console.log(e.keyCode);
-};
