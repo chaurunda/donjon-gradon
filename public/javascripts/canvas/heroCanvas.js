@@ -4,6 +4,8 @@ hero.src = "/images/character.png";
 window.onload = function () {
     var canvas = document.getElementById('heroCanvas');
     if (canvas) {
+        canvas.width = 160;
+        canvas.height = 144;
         var ctx = canvas.getContext('2d'),
             positionImage = {
                 x: canvas.width / 2,
