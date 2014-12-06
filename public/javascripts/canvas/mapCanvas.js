@@ -1,6 +1,4 @@
-var tileset = new Image();
-tileset.src="/tilesets/pokemon.png";
 
-window.onload = function(){
-    
-}
+    var tileset = new Image();
+    tileset.src="/tilesets/pokemon.png";
+    var canvas = document.getElementById('mapCanvas');
