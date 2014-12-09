@@ -20,3 +20,12 @@ a {
   right: 10px;
   top: 10px;
 }
+#mapCanvas {
+  background: #ccc;
+  position: absolute;
+  z-index: 1;
+}
+#heroCanvas {
+  position: absolute;
+  z-index: 2;
+}
