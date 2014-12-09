@@ -1,114 +1,80 @@
 var heroCanvas = {
+    conf:{
+        speed: 3, // movement speed
+        animDuration: 300, // cycle duration
+        pos : {x: 10, y: 10} // Hero position
+    },
     init: function () {
         this.drawHero();
     },
     drawHero: function () {
-        var hero = new Image(),
+        var self = this,
+            hero = new Image(),
             canvas = document.getElementById('heroCanvas'),
             ctx = canvas.getContext('2d'),
-            requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame,
+            mvtKeys = [38,39,40,37], // top, right, bottom, left
             keyIsDown = false,
-            animInterval,
-            timeInterval = 150,
-            mvt = 3,
-            tickX = 10,
-            tickY = 10,
-            keyLeft = false,
-            keyTop = false,
-            keyRight = false,
-            keyBottom = false,
-            switchImage = true;
+            switchImage = true,
+            activeKey, initialPosition, animInterval; // to store the current active key, the setTimeout (for inital position) and the setInterval (to animate the hero)
 
-        window.requestAnimationFrame = requestAnimationFrame;
+        hero.src = "../../images/character.png";
 
-        window.addEventListener("keydown", onKeyDown, false);
-        window.addEventListener("keyup", onKeyUp, false);
+        hero.onload = function () {
+            drawMyImage(hero, 0, 0, self.conf.pos.x, self.conf.pos.y);
+            window.addEventListener("keydown", onKeyDown, false);
+            window.addEventListener("keyup", onKeyUp, false);
+        };
 
         function onKeyDown(event) {
-            if (keyIsDown) return;
-            console.log('Key Down');
+            if(keyIsDown || !~mvtKeys.indexOf(event.keyCode)) return;
+
+            activeKey = event.keyCode;
             keyIsDown = true;
-            var keyCode = event.keyCode,
-                yVal = 0;
-            console.log(keyCode);
-            switch (keyCode) {
-            case 37: //Left
-                keyLeft = true;
-                break;
-            case 38: //Top
-                keyTop = true;
-                break;
-            case 39: //Right
-                keyRight = true;
-                break;
-            case 40: //Bottom
-                keyBottom = true;
-                break;
+
+            if(initialPosition !== undefined) clearTimeout(initialPosition);
+
+            var yVal =
+                (activeKey === mvtKeys[0])
+                    ? 16
+                    : (activeKey === mvtKeys[1])
+                        ? 32
+                        : (activeKey === mvtKeys[2])
+                            ? 0
+                            : 48;
+
+            function moveHero () {
+                (activeKey === mvtKeys[0])
+                    ? self.conf.pos.y -= self.conf.speed
+                    : (activeKey === mvtKeys[1])
+                        ? self.conf.pos.x += self.conf.speed
+                        : (activeKey === mvtKeys[2])
+                            ? self.conf.pos.y += self.conf.speed
+                            : self.conf.pos.x -= self.conf.speed;
+
+                drawMyImage(hero, 0, yVal, self.conf.pos.x, self.conf.pos.y);
             }
 
-            if (keyRight == true) {
-                yVal = 32;
-            } else if (keyBottom == true) {
-                yVal = 0;
-            } else if (keyTop == true) {
-                yVal = 16;
-            } else if (keyLeft == true) {
-                yVal = 48;
-            }
-
-            animInterval = setInterval(function () {
-                if (keyRight == true) {
-                    tickX += mvt;
-                } else if (keyBottom == true) {
-                    tickY += mvt;
-                } else if (keyTop == true) {
-                    tickY -= mvt;
-                } else if (keyLeft == true) {
-                    tickX -= mvt;
-                }
-                drawMyImage(hero, 0, yVal, tickX, tickY);
-            }, timeInterval);
-
+            moveHero();
+            animInterval = setInterval(moveHero, self.conf.animDuration);
         }
 
         function onKeyUp(event) {
-            console.log('Key Up');
+            if(event.keyCode !== activeKey) return;
+
             keyIsDown = false;
-            var keyCode = event.keyCode;
-            switch (keyCode) {
-            case 37: //Left
-                keyLeft = false;
-                break;
-            case 38: //Top
-                keyTop = false;
-                break;
-            case 39: //Right
-                keyRight = false;
-                break;
-            case 40: //Bottom
-                keyBottom = false;
-                break;
-            }
+
             clearInterval(animInterval);
+
+            initialPosition = setTimeout(function(){
+                drawMyImage(hero, 0, 0, self.conf.pos.x, self.conf.pos.y);
+            }, 50);
         }
 
-
-        function drawMyImage(image, x, y, tickX, tickY) {
-            if (switchImage) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(image, x, y, 16, 16, tickX, tickY, 16, 16);
-                switchImage = false;
-            } else {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(image, x + 16, y, 16, 16, tickX, tickY, 16, 16);
-                switchImage = true;
-            }
+        function drawMyImage(image, x, y, posX, posY) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, (switchImage) ? x : x+16, y, 16, 16, posX, posY, 16, 16);
+            switchImage = !switchImage;
         }
 
-        hero.src = "https://raw.githubusercontent.com/arnaudhuc/donjon-gradon/master/public/images/character.png";
-        hero.onload = function () {
-            console.log("image loaded");
-            drawMyImage(hero, 0, 0, tickX, tickY);
-        };
     }
 }
