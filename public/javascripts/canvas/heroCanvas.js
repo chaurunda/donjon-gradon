@@ -1,7 +1,8 @@
 /***** OBSTACLES *****/
 var obstacles = [
     {l:50,t:50,w:10,h:10},
-    {l:150,t:70,w:20,h:20}
+    {l:150,t:70,w:20,h:20},
+    {l:100,t:100,w:30,h:5}
 ];
 var mapCanvas = document.getElementById('mapCanvas'), mapctx = mapCanvas.getContext('2d');
 for(var i = 0, lgth = obstacles.length; i < lgth; i++){
@@ -13,8 +14,8 @@ for(var i = 0, lgth = obstacles.length; i < lgth; i++){
 
 var heroCanvas = {
     conf:{
-        speed: 3, // movement speed
-        animDuration: 300, // cycle duration
+        speed: 5, // movement speed
+        animDuration: 250, // cycle duration
         hero : {w: 16, h: 16}, // Hero size
         pos : {x: 10, y: 10} // Hero position
     },
