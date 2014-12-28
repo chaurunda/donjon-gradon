@@ -14,7 +14,7 @@ for(var i = 0, lgth = obstacles.length; i < lgth; i++){
 
 var heroCanvas = {
     conf:{
-        speed: 5, // movement speed
+        speed: 4, // movement speed
         animDuration: 250, // cycle duration
         hero : {w: 16, h: 16}, // Hero size
         pos : {x: 10, y: 10} // Hero position
