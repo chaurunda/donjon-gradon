@@ -1,8 +1,19 @@
 /***** OBSTACLES *****/
 var obstacles = [
-    {l:50,t:50,w:10,h:10},
-    {l:150,t:70,w:20,h:20},
-    {l:100,t:100,w:30,h:5}
+    {l:0,t:0,w:156,h:10}, //Top Left
+    {l:196,t:0,w:128,h:10}, // Top Right
+    {l:0,t:0,w:12,h:288}, // Left Side
+    {l:12,t:274,w:16,h:16}, // Bottom left
+    {l:68,t:50,w:56,h:34}, // Ash's House
+    {l:194,t:50,w:58,h:34}, // Rival's House
+    {l:50,t:80,w:16,h:10}, // Ash Panel
+    {l:180,t:80,w:16,h:5}, // Rival's Panel
+    {l:308,t:0,w:30,h:288}, //Right Side
+    {l:134,t:274,w:192,h:10}, //Bottom right
+    {l:66,t:224,w:62,h:64}, //Water
+    {l:164,t:208,w:90,h:5}, //Oak barier
+    {l:164,t:130,w:88,h:58}, //Oak's Lab
+    {l:66,t:148,w:60,h:5} //Bourg Palette barier
 ];
 var mapCanvas = document.getElementById('mapCanvas'), mapctx = mapCanvas.getContext('2d');
 for(var i = 0, lgth = obstacles.length; i < lgth; i++){
@@ -17,7 +28,7 @@ var heroCanvas = {
         speed: 4, // movement speed
         animDuration: 250, // cycle duration
         hero : {w: 16, h: 16}, // Hero size
-        pos : {x: 10, y: 10} // Hero position
+        pos : {x: 20, y: 20} // Hero position
     },
     init: function () {
         this.drawHero();
