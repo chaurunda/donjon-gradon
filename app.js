@@ -6,6 +6,7 @@
 var express = require('express');
 var index = require('./routes');
 var game = require('./routes/game');
+var battle = require('./routes/battle');
 var http = require('http');
 var path = require('path');
 var os = require('os');
@@ -35,7 +36,7 @@ if ('development' == app.get('env')) {
 }
 
 //LocalIp
-var result = ""
+var result = "";
 for (var dev in ifaces) {
     for(var details in ifaces[dev]){
         var detail = ifaces[dev][details]
@@ -61,6 +62,7 @@ app.get('/new', index.newGame(ip[0], db, dbname));
 app.post('/new', index.newGame(ip[0], db, dbname));
 app.get('/game/:id', game.index(ip[0], db, dbname));
 app.get('/del/:id', index.deletePlayer(ip[0], db, dbname));
+app.get('/battle/:id/:en', battle.index(ip[0], db, dbname));
 
 
 
@@ -73,6 +75,7 @@ var server = http.createServer(app).listen(app.get('port'), function(){
     }
     console.log("=== Welcome to " + appname + " ===");
     console.log("=== Express server listening on port " + app.get('port') + " ===");
+
 });
 
 //Web Socket
@@ -106,4 +109,3 @@ io.on('connection', function (socket) {
         }
     });
 });
-

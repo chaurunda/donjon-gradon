@@ -26,7 +26,7 @@ for(var i = 0, lgth = obstacles.length; i < lgth; i++){
 var heroCanvas = {
     conf:{
         speed: 4, // movement speed
-        animDuration: 250, // cycle duration
+        animDuration: 50, // cycle duration
         hero : {w: 16, h: 16}, // Hero size
         pos : {x: 20, y: 20} // Hero position
     },
@@ -34,12 +34,12 @@ var heroCanvas = {
         this.drawHero();
     },
     drawHero: function () {
-        var self = this,
-            hero = new Image(),
-            canvas = document.getElementById('heroCanvas'),
-            ctx = canvas.getContext('2d'),
-            mvtKeys = [38,39,40,37], // top, right, bottom, left
-            keyIsDown = false,
+        var self        = this,
+            hero        = new Image(),
+            canvas      = document.getElementById('heroCanvas'),
+            ctx         = canvas.getContext('2d'),
+            mvtKeys     = [38,39,40,37], // top, right, bottom, left
+            keyIsDown   = false,
             switchImage = true, //
             activeKey, initialPosition, animInterval; // to store the current active key, the setTimeout (for inital position) and the setInterval (to animate the hero)
 
