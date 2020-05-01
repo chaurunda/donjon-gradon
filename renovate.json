@@ -6,5 +6,8 @@
   },
   "automergeType": "branch",
   "rangeStrategy": "auto",
-  "rebaseStalePrs": false
+  "rebaseStalePrs": false,
+  "assignees": ["arnaudhuc"],
+  "labels": ["AutoUpdate"],
+  "requiredStatusChecks": null
 }
