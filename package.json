@@ -9,7 +9,7 @@
     "express": "4.17.1",
     "jade": "*",
     "stylus": "*",
-    "mongodb": "3.5.7",
+    "mongodb": "3.5.8",
     "socket.io": "2.3.0"
   }
 }
